@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Andrés Albán | Data & Systems Engineer</title>
+<meta name="description" content="Portafolio de Andrés Albán. Estudiante FIS-EPN. Ciencia de Datos, Machine Learning y Arquitectura de Software.">
+<style>
+/* ===== VARIABLES Y TEMA BENTO UI ===== */
+:root {
+  --bg-color: #050505;
+  --card-bg: #121212;
+  --card-hover: #1a1a1a;
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --accent-gold: #f5a623;
+  --accent-blue: #3b82f6;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(245, 166, 35, 0.3);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-family: var(--font-sans); background: var(--bg-color); color: var(--text-main); }
+body { overflow-x: hidden; }
+
+/* Fondo con efecto de ruido y malla sutil */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(245, 166, 35, 0.05), transparent 25%);
+}
+
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ===== NAVEGACIÓN FLOTANTE (PÍLDORA) ===== */
+.floating-nav {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100;
+  background: rgba(18, 18, 18, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem; border-radius: 100px; display: flex; gap: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s ease;
+}
+.floating-nav:hover { transform: translateX(-50%) translateY(-5px); }
+.floating-nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; padding: 0.5rem; }
+.floating-nav a:hover { color: var(--text-main); }
+.floating-nav a.active { color: var(--accent-gold); }
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 8rem; }
+
+/* ===== HEADER / HERO ===== */
+.hero { margin-bottom: 4rem; display: flex; flex-direction: column; gap: 1rem; }
+.hero-badge {
+  align-self: flex-start; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue);
+  padding: 0.4rem 1rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.85rem;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.hero h1 { font-size: clamp(3rem, 8vw, 5rem); }
+.hero h1 span { color: var(--text-muted); font-weight: 400; }
+.hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 60ch; line-height: 1.6; margin-top: 1rem; }
+
+/* ===== BENTO GRID ===== */
+.bento-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); auto-rows: minmax(200px, auto);
+  gap: 1.5rem; margin-bottom: 5rem;
+}
+
+/* Tarjeta Base */
+.bento-card {
+  background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px;
+  padding: 2rem; display: flex; flex-direction: column; position: relative; overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-card:hover { 
+  transform: translateY(-5px); background: var(--card-hover);
+  border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Tamaños de Tarjetas */
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.row-span-2 { grid-row: span 2; }
+
+/* === TARJETA: PERFIL VISUAL === */
+.card-profile { padding: 0; border: none; }
+.card-profile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+.card-profile:hover img { transform: scale(1.05); filter: brightness(1.1); }
+.card-profile::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+}
+.profile-name { position: absolute; bottom: 1.5rem; left: 1.5rem; z-index: 2; }
+.profile-name h2 { font-size: 2rem; margin-bottom: 0.2rem; }
+.profile-name span { color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.9rem; }
+
+/* === TARJETA: SOBRE MÍ === */
+.card-about h3 { color: var(--text-muted); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+.card-about p { font-size: 1.1rem; line-height: 1.7; color: #ddd; margin-bottom: 1.5rem; }
+.card-about strong { color: var(--text-main); }
+
+/* === TARJETA: HABILIDADES (MARQUEE) === */
+.card-skills { justify-content: center; overflow: hidden; }
+.marquee { display: flex; gap: 1rem; width: max-content; animation: scroll 20s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+.skill-tag {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+  padding: 0.8rem 1.5rem; border-radius: 100px; font-family: var(--font-mono);
+  font-size: 1rem; white-space: nowrap; transition: all 0.3s;
+}
+.skill-tag:hover { background: var(--text-main); color: var(--bg-color); }
+@keyframes scroll { to { transform: translateX(calc(-50% - 0.5rem)); } }
+
+/* === TARJETAS: PROYECTOS === */
+.project-card { justify-content: space-between; }
+.project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+.project-icon { font-size: 2.5rem; }
+.project-link { 
+  width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05);
+  display: grid; place-items: center; transition: all 0.3s; color: var(--text-main);
+}
+.project-card:hover .project-link { background: var(--accent-gold); color: #000; transform: rotate(45deg); }
+.project-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.project-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem; }
+.tech-stack { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto; }
+.tech-stack span { 
+  font-size: 0.75rem; padding: 0.3rem 0.8rem; border-radius: 6px;
+  background: rgba(255,255,255,0.05); color: #bbb; font-family: var(--font-mono);
+}
+
+/* === TARJETA: CONTACTO === */
+.card-contact { background: linear-gradient(135deg, var(--card-bg), rgba(59, 130, 246, 0.1)); border-color: rgba(59, 130, 246, 0.3); justify-content: center; align-items: center; text-align: center; }
+.card-contact h3 { font-size: 2rem; margin-bottom: 1rem; }
+.magnetic-btn {
+  background: var(--text-main); color: var(--bg-color); font-weight: 600;
+  padding: 1rem 2rem; border-radius: 100px; display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: none; font-size: 1rem;
+}
+.magnetic-btn:hover { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+/* ===== EFECTO CURSOR GLOW ===== */
+.cursor-glow {
+  position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none; z-index: 10; transform: translate(-50%, -50%);
+  transition: top 0.1s ease-out, left 0.1s ease-out; display: none;
+}
+
+/* ===== ANIMACIÓN DE ENTRADA ===== */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .span-2, .span-3, .span-4 { grid-column: span 4; }
+  .row-span-2 { grid-row: auto; }
+  .card-profile { height: 400px; }
+}
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .container { padding: 2rem 1.5rem 6rem; }
+  .floating-nav { width: 90%; justify-content: space-around; gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navegación Flotante Minimalista -->
+<nav class="floating-nav">
+  <a href="#inicio" class="active">Inicio</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<!-- Brillo del cursor -->
+<div class="cursor-glow" id="cursor-glow"></div>
+
+<div class="container">
+  <!-- HERO SECTION -->
+  <header class="hero fade-in" id="inicio">
+    <div class="hero-badge">Estudiante FIS - EPN</div>
+    <h1>Andrés Albán.<br><span>Ingeniería & Datos.</span></h1>
+    <p>Diseño arquitecturas de software robustas, optimizo algoritmos y transformo datos crudos en inteligencia de negocios.</p>
+  </header>
+
+  <!-- BENTO GRID -->
+  <main class="bento-grid">
+    
+    <!-- Tarjeta: FOTO (Destacada) -->
+    <div class="bento-card card-profile span-2 row-span-2 fade-in">
+      <img src="image_5b138d.jpg" alt="Andrés Albán">
+      <div class="profile-name">
+        <h2>Andrés Fernando</h2>
+        <span>&lt; Desarrollador Backend & Data Analyst /&gt;</span>
+      </div>
+    </div>
+
+    <!-- Tarjeta: SOBRE MÍ -->
+    <div class="bento-card card-about span-2 fade-in">
+      <h3>Sobre mí</h3>
+      <p>Estudiante de quinto semestre de <strong>Ingeniería en Sistemas de Información</strong> en la Escuela Politécnica Nacional. Combino la lógica de la algoritmia con herramientas de <strong>Machine Learning</strong> e <strong>Inteligencia de Negocios</strong> para crear soluciones tecnológicas eficientes.</p>
+      <div style="display: flex; gap: 2rem; margin-top: auto;">
+        <div>
+          <h4 style="font-size: 2rem; color: var(--accent-gold);">5to</h4>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Semestre FIS</span>
+        </div>
+        <div>
+          <h4 style="font-size: 2rem; color: var(--accent-blue);">+10</h4>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Proyectos Académicos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta: HABILIDADES (Marquee Infinito) -->
+    <div class="bento-card card-skills span-2 fade-in">
+      <div class="marquee">
+        <div class="marquee-content" style="display: flex; gap: 1rem;">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">DAX</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">TOGAF ADM</span>
+          <span class="skill-tag">Figma</span>
+        </div>
+        <!-- Duplicado para efecto infinito -->
+        <div class="marquee-content" style="display: flex; gap: 1rem;">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">DAX</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">TOGAF ADM</span>
+          <span class="skill-tag">Figma</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta Proyecto 1: Arquitectura Empresarial -->
+    <div class="bento-card project-card span-2 fade-in" id="proyectos">
+      <div class="project-header">
+        <div class="project-icon">🏗️</div>
+        <a href="#" class="project-link">↗</a>
+      </div>
+      <h3>Análisis de Arquitectura Empresarial</h3>
+      <p>Evaluación estructural mediante el framework TOGAF ADM. Análisis de capas de negocio, datos, aplicación y tecnología para aislamiento de fallos y microservicios en entidades como Banco Pichincha y EcoAbastos.</p>
+      <div class="tech-stack">
+        <span>TOGAF</span><span>IaaS</span><span>Cloud Backup</span><span>Enterprise Arch</span>
+      </div>
+    </div>
+
+    <!-- Tarjeta Proyecto 2: Analítica y BI -->
+    <div class="bento-card project-card span-2 fade-in">
+      <div class="project-header">
+        <div class="project-icon">📈</div>
+        <a href="#" class="project-link">↗</a>
+      </div>
+      <h3>Dashboards Analíticos & DAX</h3>
+      <p>Diseño y comercialización de plantillas digitales de productividad (ej. Winter Arc tracker). Modelado relacional de datos y creación de métricas avanzadas.</p>
+      <div class="tech-stack">
+        <span>Power BI</span><span>DAX</span><span>Microsoft Excel</span><span>Data Modeling</span>
+      </div>
+    </div>
+
+    <!-- Tarjeta Proyecto 3: Algoritmia -->
+    <div class="bento-card project-card span-2 fade-in">
+      <div class="project-header">
+        <div class="project-icon">⚡</div>
+        <a href="#" class="project-link">↗</a>
+      </div>
+      <h3>Complejidad Algorítmica</h3>
+      <p>Evaluación de complejidad temporal (Big O) y funciones de costo para algoritmos. Documentación científica en formato Springer Nature compilada en LaTeX.</p>
+      <div class="tech-stack">
+        <span>Java</span><span>NetBeans</span><span>GeoGebra</span><span>LaTeX (Overleaf)</span>
+      </div>
+    </div>
+
+    <!-- Tarjeta: CONTACTO -->
+    <div class="bento-card card-contact span-2 fade-in" id="contacto">
+      <h3>¿Iniciamos un proyecto?</h3>
+      <p style="color: #bbb; margin-bottom: 2rem;">Disponible para retos en desarrollo backend y ciencia de datos.</p>
+      <a href="mailto:andres@ejemplo.com" class="magnetic-btn" id="magnet">
+        Contactar Ahora
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// === EFECTO FADE-IN AL HACER SCROLL ===
+const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// === ACTUALIZAR NAVEGACIÓN ACTIVA ===
+const sections = document.querySelectorAll('.hero, .project-card, .card-contact');
+const navLinks = document.querySelectorAll('.floating-nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (pageYOffset >= (sectionTop - 300)) {
+      current = section.getAttribute('id') || current;
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href').includes(current)) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// === EFECTO BOTÓN MAGNÉTICO ===
+const magnetBtn = document.getElementById('magnet');
+if (window.innerWidth > 768) {
+  magnetBtn.addEventListener('mousemove', (e) => {
+    const rect = magnetBtn.getBoundingClientRect();
+    const h = rect.width / 2;
+    const v = rect.height / 2;
+    const x = e.clientX - rect.left - h;
+    const y = e.clientY - rect.top - v;
+    magnetBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+  });
+
+  magnetBtn.addEventListener('mouseleave', () => {
+    magnetBtn.style.transform = 'translate(0px, 0px)';
+  });
+}
+
+// === BRILLO DEL CURSOR (Solo en escritorio) ===
+const cursorGlow = document.getElementById('cursor-glow');
+if (window.innerWidth > 1024) {
+  cursorGlow.style.display = 'block';
+  document.addEventListener('mousemove', (e) => {
+    cursorGlow.style.left = e.pageX + 'px';
+    cursorGlow.style.top = e.pageY + 'px';
+  });
+}
+</script>
+</body>
+</html>

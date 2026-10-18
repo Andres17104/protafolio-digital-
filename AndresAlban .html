@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Andrés Albán | FIS - Escuela Politécnica Nacional</title>
+<meta name="description" content="Portafolio Profesional de Andrés Albán - Facultad de Ingeniería de Sistemas (FIS - EPN). Ciencia de Datos, Inteligencia Artificial e Ingeniería de Software.">
+<style>
+/* ===== VARIABLES FIS - EPN (FACULTAD DE INGENIERÍA DE SISTEMAS) ===== */
+:root {
+  --fis-navy: #0a192f;
+  --fis-blue: #0284c7;
+  --fis-cyan: #06b6d4;
+  --epn-gold: #eab308;
+  --bg: #070a12;
+  --surface: #0f172a;
+  --surface-card: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: #334155;
+  --grid: rgba(6, 182, 212, 0.06);
+  --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --nav-h: 68px;
+  --err: #ef4444;
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-card: #f1f5f9;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --fis-blue: #0369a1;
+  --fis-cyan: #0891b2;
+  --grid: rgba(3, 105, 161, 0.05);
+  --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  --err: #dc2626;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  transition: background .3s, color .3s;
+  background-image: 
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .6rem; }
+h2 { font-size: 1.85rem; font-family: ui-monospace, Consolas, monospace; }
+h2::before { content: "FIS::"; color: var(--fis-cyan); }
+p { margin: 0 0 1rem; max-width: 65ch; }
+a { color: var(--fis-cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.wrap { width: min(1120px, 92%); margin-inline: auto; }
+section { padding: 4.5rem 0; }
+.sub { color: var(--muted); margin-bottom: 2.2rem; }
+.mono { font-family: ui-monospace, Consolas, monospace; }
+
+/* ===== BADGE FIS EPN ===== */
+.epn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid var(--fis-cyan);
+  color: var(--fis-cyan);
+  padding: .35rem .85rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* ===== NAVEGACIÓN ===== */
+header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--nav-h);
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] header { background: rgba(255, 255, 255, 0.9); }
+
+nav { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.logo { font-weight: 700; color: var(--text); font-family: ui-monospace, Consolas, monospace; font-size: 1.05rem; }
+.logo span { color: var(--fis-cyan); }
+.logo b { color: var(--epn-gold); }
+
+.links { display: flex; gap: .2rem; list-style: none; margin: 0; padding: 0; }
+.links a {
+  display: block;
+  padding: .45rem .65rem;
+  color: var(--muted);
+  font-size: .88rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all .2s;
+}
+.links a:hover { color: var(--text); background: rgba(6, 182, 212, 0.1); text-decoration: none; }
+.links a.active { color: var(--fis-cyan); background: rgba(6, 182, 212, 0.15); font-weight: 600; }
+
+.toggle {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: .4rem .8rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+/* ===== HERO SECTION ===== */
+#inicio { position: relative; padding-top: calc(var(--nav-h) + 2.5rem); overflow: hidden; }
+#net { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.hero { position: relative; z-index: 1; display: grid; gap: 2.5rem; align-items: center; }
+
+.photo { justify-self: center; position: relative; width: 280px; height: 280px; }
+.avatar {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--fis-cyan);
+  background: var(--surface);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed var(--epn-gold);
+  animation: spin 30s linear infinite;
+}
+
+.chip {
+  position: absolute;
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  font-size: .75rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  animation: float 4s ease-in-out infinite;
+}
+.chip:nth-of-type(1) { top: 4%; left: -6%; border-color: var(--fis-cyan); color: var(--fis-cyan); }
+.chip:nth-of-type(2) { top: 45%; right: -12%; animation-delay: -1.3s; border-color: var(--epn-gold); color: var(--epn-gold); }
+.chip:nth-of-type(3) { bottom: 2%; left: -2%; animation-delay: -2.6s; border-color: var(--fis-blue); color: var(--fis-blue); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 50% { transform: translateY(-8px); } }
+
+.hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.2rem); font-weight: 800; letter-spacing: -0.5px; }
+.term {
+  color: var(--fis-cyan);
+  font-weight: 600;
+  font-size: 1.15rem;
+  min-height: 1.8em;
+}
+.term::after { content: "▍"; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--fis-blue);
+  background: var(--fis-blue);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s, filter .2s;
+  text-decoration: none!important;
+}
+.btn:hover { filter: brightness(1.15); transform: translateY(-2px); }
+.btn.out { background: transparent; color: var(--text); border-color: var(--border); margin-left: .5rem; }
+.btn.out:hover { border-color: var(--fis-cyan); color: var(--fis-cyan); }
+
+.stats { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--border); }
+.stats b { display: block; font-size: 1.8rem; color: var(--fis-cyan); font-family: ui-monospace, Consolas, monospace; }
+.stats span { font-size: .85rem; color: var(--muted); }
+
+/* ===== TARJETAS ===== */
+.grid { display: grid; gap: 1.5rem; }
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.6rem;
+  box-shadow: var(--shadow);
+  transition: transform .25s, border-color .25s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--fis-cyan); }
+.card p { color: var(--muted); font-size: .95rem; margin: 0; }
+.card .ico { font-size: 2rem; display: block; margin-bottom: .6rem; }
+.tech { color: var(--fis-cyan); font-weight: 600; margin-top: 1rem!important; font-size: .85rem; }
+
+/* ===== HABILIDADES ===== */
+.pills { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.pills li { background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; padding: .8rem 1.2rem; }
+.pills .row { display: flex; justify-content: space-between; font-weight: 600; font-size: .95rem; }
+.bar { height: 7px; border-radius: 6px; background: var(--border); margin-top: .5rem; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--fis-blue), var(--fis-cyan)); transition: width 1.2s ease; }
+.in .bar i { width: var(--w); }
+
+/* ===== TRAYECTORIA ===== */
+.tl { position: relative; list-style: none; margin: 0; padding: 0 0 0 1.6rem; border-left: 2px solid var(--border); }
+.tl li { position: relative; margin-bottom: 1.8rem; }
+.tl li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.6rem - 6px);
+  top: .35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--fis-cyan);
+  border: 3px solid var(--bg);
+}
+.tl time { color: var(--epn-gold); font-weight: 600; font-size: .88rem; }
+.tl h3 { margin: .2rem 0 .3rem; font-size: 1.15rem; }
+.tl p { color: var(--muted); margin: 0; font-size: .95rem; }
+
+/* ===== FORMULARIO ===== */
+form { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 620px; }
+.field { margin-bottom: 1.2rem; }
+label { display: block; font-weight: 600; margin-bottom: .4rem; font-size: .9rem; }
+input, textarea {
+  width: 100%;
+  padding: .8rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+input:focus, textarea:focus { outline: 2px solid var(--fis-cyan); border-color: transparent; }
+textarea { min-height: 120px; resize: vertical; }
+.invalid { border-color: var(--err)!important; }
+.valid { border-color: #22c55e!important; }
+.error { color: var(--err); font-size: .85rem; min-height: 1.2em; margin: .25rem 0 0; }
+.status { margin: 1rem 0 0; font-weight: 600; color: #22c55e; min-height: 1.4em; }
+
+/* ===== BOTONES FLOTANTES ===== */
+.fab {
+  position: fixed;
+  right: 1.2rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 0;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.35);
+  cursor: pointer;
+  z-index: 90;
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+.wa { bottom: 1.2rem; background: #25d366; color: #fff; }
+.top { bottom: 5rem; background: var(--surface-card); border: 1px solid var(--border); color: var(--text); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.top.show { opacity: 1; pointer-events: auto; }
+
+footer { text-align: center; padding: 2.5rem 0; color: var(--muted); border-top: 1px solid var(--border); font-size: .9rem; }
+
+/* ===== RESPONSIVE ===== */
+.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+.js .reveal.in { opacity: 1; transform: none; }
+
+@media(min-width: 768px) {
+  .hero { grid-template-columns: 1.2fr 1fr; text-align: left; }
+  .photo { order: 1; width: 320px; height: 320px; }
+  .stats { justify-content: flex-start; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .pills { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 767px) {
+  .logo { font-size: .95rem; }
+  .links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap" aria-label="Principal">
+    <a class="logo" href="#inicio">&lt;FIS::<span>andres.alban</span><b>/&gt;</b></a>
+    <ul class="links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#especialidades">Especialidades</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#trayectoria">Trayectoria</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="toggle" id="theme-btn" aria-label="Cambiar Tema">
+      <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- INICIO -->
+<section id="inicio">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap hero">
+    <div>
+      <div class="epn-badge">
+        <span>🏛️</span> Escuela Politécnica Nacional — FIS
+      </div>
+      <p class="mono" style="color:var(--muted);margin-bottom:.3rem">$ whoami</p>
+      <h1>Andrés Albán</h1>
+      <div class="term mono" id="typed" aria-label="Ingeniería en Sistemas de Información"></div>
+      <p>Estudiante de la Facultad de Ingeniería de Sistemas (EPN). Especializado en transformación de datos, inteligencia artificial y arquitectura de sistemas de información.</p>
+      <div style="margin-top: 1.5rem;">
+        <a class="btn" href="#proyectos">Ver Proyectos</a>
+        <a class="btn out" href="#contacto">Contáctame</a>
+      </div>
+      <div class="stats">
+        <div><b data-n="8">0</b><span>Proyectos</span></div>
+        <div><b data-n="12">0</b><span>Tecnologías</span></div>
+        <div><b data-n="3">0</b><span>Especialidades</span></div>
+      </div>
+    </div>
+
+    <!-- FOTO CON TRAJE Y CORBATA -->
+    <div class="photo">
+      <div class="ring"></div>
+      <div class="avatar">
+        <img id="foto" src="image_2.png" alt="Fotografía de Andrés Albán en traje" onerror="this.onerror=null;this.src='foto-traje.jpg'">
+      </div>
+      <span class="chip mono">Python</span>
+      <span class="chip mono">SQL</span>
+      <span class="chip mono">Machine Learning</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="wrap reveal">
+    <h2>Sobre mí</h2>
+    <p>Soy estudiante de la <strong>Facultad de Ingeniería de Sistemas (FIS)</strong> en la <strong>Escuela Politécnica Nacional (EPN)</strong> en Quito, Ecuador.</p>
+    <p>Mi enfoque profesional combina la rigurosidad de la Ingeniería en Sistemas de Información con la Ciencia de Datos e Inteligencia Artificial, abarcando desde el modelado analítico y diseño de pipelines ETL hasta el despliegue de soluciones de software escalables.</p>
+  </div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section id="especialidades">
+  <div class="wrap">
+    <h2 class="reveal">Especialidades</h2>
+    <p class="sub reveal">Áreas clave de formación y desarrollo en la FIS-EPN.</p>
+    <div class="grid g2">
+      <article class="card reveal">
+        <span class="ico">🤖</span>
+        <h3>Ciencia de Datos & Machine Learning</h3>
+        <p>Modelos predictivos, algoritmos de clasificación, regresión y clustering para analítica avanzada de datos.</p>
+        <p class="tech">Scikit-Learn · Pandas · NumPy · Python</p>
+      </article>
+      <article class="card reveal">
+        <span class="ico">🗄️</span>
+        <h3>Ingeniería de Datos & ETL</h3>
+        <p>Extracción, transformación y carga de grandes volúmenes de datos hacia almacenes analíticos estructurados.</p>
+        <p class="tech">SQL · PostgreSQL · Apache Airflow · Power BI</p>
+      </article>
+      <article class="card reveal">
+        <span class="ico">📊</span>
+        <h3>Inteligencia de Negocios (BI)</h3>
+        <p>Diseño de tableros ejecutivos interactivos y modelado dimensional para la toma de decisiones basada en datos.</p>
+        <p class="tech">Power BI · DAX · Modeling · Dashboards</p>
+      </article>
+      <article class="card reveal">
+        <span class="ico">🧩</span>
+        <h3>Arquitectura de Software</h3>
+        <p>Diseño de servicios backend RESTful, microservicios y sistemas orientados a alta disponibilidad.</p>
+        <p class="tech">Java · Spring Boot · Docker · Git</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="wrap">
+    <h2 class="reveal">Proyectos Destacados</h2>
+    <p class="sub reveal">Proyectos aplicados de analítica, machine learning y sistemas de información.</p>
+    <div class="grid g3">
+      <article class="card reveal">
+        <h3>Predicción de Churn de Clientes</h3>
+        <p>Modelo de clasificación utilizando Random Forest para detectar la fuga de usuarios en servicios de telecomunicaciones (89% de precisión).</p>
+        <p class="tech">Python · Scikit-Learn · Seaborn</p>
+      </article>
+      <article class="card reveal">
+        <h3>Pipeline ETL Financiero</h3>
+        <p>Flujo automatizado de extracción de datos transaccionales desde múltiples APIs hacia reportes interactivos en Power BI.</p>
+        <p class="tech">SQL · Power BI · Python</p>
+      </article>
+      <article class="card reveal">
+        <h3>Sistema Transaccional Microservicios</h3>
+        <p>API RESTful escalable basada en la arquitectura empresarial, contenedorizada en Docker para alta disponibilidad.</p>
+        <p class="tech">Java · Spring Boot · Docker</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="wrap reveal">
+    <h2>Habilidades & Stack</h2>
+    <p class="sub">Dominio técnico de herramientas y lenguajes.</p>
+    <ul class="pills">
+      <li><div class="row"><span>Python (Data Science & ML)</span><span>88%</span></div><div class="bar"><i style="--w:88%"></i></div></li>
+      <li><div class="row"><span>SQL / PostgreSQL / MySQL</span><span>85%</span></div><div class="bar"><i style="--w:85%"></i></div></li>
+      <li><div class="row"><span>Machine Learning & IA</span><span>78%</span></div><div class="bar"><i style="--w:78%"></i></div></li>
+      <li><div class="row"><span>Java & Spring Boot</span><span>75%</span></div><div class="bar"><i style="--w:75%"></i></div></li>
+      <li><div class="row"><span>Power BI & Analítica</span><span>82%</span></div><div class="bar"><i style="--w:82%"></i></div></li>
+      <li><div class="row"><span>Docker & Git/GitHub</span><span>72%</span></div><div class="bar"><i style="--w:72%"></i></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria">
+  <div class="wrap">
+    <h2 class="reveal">Trayectoria Académica</h2>
+    <p class="sub reveal">Formación y desarrollo profesional en la EPN.</p>
+    <ol class="tl">
+      <li class="reveal">
+        <time>En curso</time>
+        <h3>Ingeniería en Sistemas de Información</h3>
+        <p>Facultad de Ingeniería de Sistemas (FIS) — Escuela Politécnica Nacional (Quito, Ecuador).</p>
+      </li>
+      <li class="reveal">
+        <time>2026</time>
+        <h3>Desarrollo de Modelos & Herramientas Analíticas</h3>
+        <p>Diseño e implementación de plantillas de seguimiento, dashboards en Power BI y algoritmos de clasificación.</p>
+      </li>
+      <li class="reveal">
+        <time>Formación Continua</time>
+        <h3>Certificaciones & Redes</h3>
+        <p>Networking Academy Cisco (Conceptos Básicos de Redes) e Inteligencia Artificial aplicada.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="wrap reveal">
+    <h2>Contacto</h2>
+    <p class="sub">Envíame una propuesta o consulta. Los campos con * son obligatorios.</p>
+    <form id="form" novalidate>
+      <div class="field">
+        <label for="nombre">Nombre Completo *</label>
+        <input id="nombre" type="text" autocomplete="name" placeholder="Ej. Carlos Andrade">
+        <p class="error" id="e-nombre" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="correo">Correo Electrónico *</label>
+        <input id="correo" type="email" autocomplete="email" placeholder="carlos@ejemplo.com">
+        <p class="error" id="e-correo" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="mensaje">Mensaje *</label>
+        <textarea id="mensaje" placeholder="Escribe tu consulta o proyecto aquí..."></textarea>
+        <p class="error" id="e-mensaje" aria-live="polite"></p>
+      </div>
+      <button class="btn" type="submit" style="width:100%;justify-content:center;">Enviar Mensaje</button>
+      <p class="status" id="status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> Andrés Albán — Facultad de Ingeniería de Sistemas (FIS - EPN) · Quito, Ecuador
+  </div>
+</footer>
+
+<button class="fab top" id="top" aria-label="Volver arriba">↑</button>
+
+<!-- WhatsApp Flotante -->
+<a class="fab wa" href="https://wa.me/593999999999?text=Hola%20Andr%C3%A9s%2C%20vi%20tu%20portafolio%20FIS%20y%20me%20gustar%C3%ADa%20contactarte." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.300 1.700 2.100 1.100 1 2 1.300 2.300 1.400.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.900.9c.3.1.5.2.5.3.1.2.1.7-.1 1.300z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+const root = document.documentElement;
+const $ = id => document.getElementById(id);
+const reduce = matchMedia('(prefers-color-scheme: dark)').matches;
+
+/* Cambiador de Tema (Dark / Light) */
+const themeBtn = $('theme-btn');
+const themeIcon = $('theme-icon');
+const themeText = $('theme-text');
+
+function setTheme(t) {
+  root.dataset.theme = t;
+  if (t === 'dark') {
+    themeIcon.textContent = '☀️';
+    themeText.textContent = 'Light';
+  } else {
+    themeIcon.textContent = '🌙';
+    themeText.textContent = 'Dark';
+  }
+  try { localStorage.setItem('theme', t); } catch(e){}
+}
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('theme'); } catch(e){}
+setTheme(savedTheme || 'dark');
+
+themeBtn.onclick = () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+
+/* Typing Effect */
+const roles = [
+  'Ingeniería en Sistemas de Información',
+  'Científico de Datos & ML',
+  'Facultad de Ingeniería de Sistemas - EPN'
+];
+const typed = $('typed');
+if (reduce) {
+  typed.textContent = roles[0];
+} else {
+  let r = 0, c = 0, del = false;
+  (function tick() {
+    const w = roles[r];
+    typed.textContent = w.slice(0, c);
+    if (!del && c === w.length) { del = true; return setTimeout(tick, 1600); }
+    if (del && c === 0) { del = false; r = (r + 1) % roles.length; }
+    c += del ? -1 : 1;
+    setTimeout(tick, del ? 35 : 75);
+  })();
+}
+
+/* Red de nodos interactiva (Canvas Datos / Redes Neuronales) */
+const cv = $('net'), cx = cv.getContext('2d');
+let pts = [];
+
+function size() {
+  cv.width = cv.offsetWidth;
+  cv.height = cv.offsetHeight;
+  pts = Array.from({ length: Math.min(50, Math.floor(cv.width / 20)) }, () => ({
+    x: Math.random() * cv.width,
+    y: Math.random() * cv.height,
+    vx: (Math.random() - .5) * .4,
+    vy: (Math.random() - .5) * .4
+  }));
+}
+
+function draw() {
+  const col = getComputedStyle(root).getPropertyValue('--fis-cyan').trim();
+  cx.clearRect(0, 0, cv.width, cv.height);
+  cx.fillStyle = col;
+  cx.strokeStyle = col;
+  pts.forEach((p, i) => {
+    if (!reduce) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > cv.width) p.vx *= -1;
+      if (p.y < 0 || p.y > cv.height) p.vy *= -1;
+    }
+    cx.globalAlpha = .4;
+    cx.beginPath();
+    cx.arc(p.x, p.y, 2, 0, 6.28);
+    cx.fill();
+    for (let j = i + 1; j < pts.length; j++) {
+      const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+      if (d < 110) {
+        cx.globalAlpha = .15 * (1 - d / 110);
+        cx.beginPath();
+        cx.moveTo(p.x, p.y);
+        cx.lineTo(q.x, q.y);
+        cx.stroke();
+      }
+    }
+  });
+  if (!reduce) requestAnimationFrame(draw);
+}
+size(); draw();
+addEventListener('resize', () => { size(); if (reduce) draw(); });
+
+/* Contadores Animados */
+document.querySelectorAll('[data-n]').forEach(el => {
+  const n = +el.dataset.n;
+  if (reduce) { el.textContent = n; return; }
+  let v = 0;
+  const s = setInterval(() => { el.textContent = ++v; if (v >= n) clearInterval(s); }, 200);
+});
+
+/* Intersection Observer para Reveal */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ScrollSpy Navegación Active */
+const links = document.querySelectorAll('.links a');
+const navObs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) {
+    links.forEach(l => {
+      const active = l.getAttribute('href') === '#' + e.target.id;
+      l.classList.toggle('active', active);
+    });
+  }
+}), { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('main section').forEach(s => navObs.observe(s));
+
+/* Volver Arriba */
+const toTop = $('top');
+addEventListener('scroll', () => toTop.classList.toggle('show', scrollY > 400));
+toTop.onclick = () => scrollTo({ top: 0, behavior: 'smooth' });
+
+/* Formulario Validación */
+const rules = {
+  nombre: v => v.trim().length >= 2 ? '' : 'Ingresa tu nombre (mínimo 2 caracteres).',
+  correo: v => !v.trim() ? 'El correo es obligatorio.' : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'Formato válido: nombre@ejemplo.com',
+  mensaje: v => v.trim().length >= 10 ? '' : 'Escribe al menos 10 caracteres.'
+};
+
+function check(id) {
+  const el = $(id), msg = rules[id](el.value);
+  $('e-' + id).textContent = msg;
+  el.classList.toggle('invalid', !!msg);
+  el.classList.toggle('valid', !msg);
+  return !msg;
+}
+
+Object.keys(rules).forEach(id => {
+  const el = $(id);
+  el.addEventListener('blur', () => check(id));
+  el.addEventListener('input', () => el.classList.contains('invalid') && check(id));
+});
+
+$('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const st = $('status');
+  if (Object.keys(rules).map(check).includes(false)) {
+    st.textContent = 'Por favor, corrige los campos requeridos.';
+    document.querySelector('.invalid').focus();
+    return;
+  }
+  st.textContent = '¡Mensaje enviado con éxito! Te responderé a la brevedad.';
+  e.target.reset();
+  e.target.querySelectorAll('.valid').forEach(i => i.classList.remove('valid'));
+});
+
+$('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
